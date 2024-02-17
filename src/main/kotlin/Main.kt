@@ -33,7 +33,9 @@ object ChatService {
         chat.messages.clear()
     }
 
-
+    fun clearChat() {
+        chats.clear()
+    }
 }
 
 fun main() {
