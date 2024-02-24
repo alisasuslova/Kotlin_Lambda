@@ -14,7 +14,11 @@ object ChatService {
 
     fun getMessages(user_id: Int, count: Int): List<Message> {
         val chat = chats[user_id] ?: throw NoChatException()
-        return chat.messages.takeLast(count).onEach { it.read = true }
+        return chat.messages.takeLast(count)
+            .asReversed()
+            .asSequence()
+            .drop(count)
+            .toList()
     }
 
     fun getLastMessages(): List<String> = chats.values.map { it.messages.lastOrNull()?.text ?: "No Messages" }
